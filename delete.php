@@ -4,19 +4,14 @@ require_once("components/Footer.php");
 require_once("Models/Database.php");
 
 $id = $_GET["id"];
+$confirmed = $_GET["confirmed"] ?? false;
 $dbContext = new Database();
 $product = $dbContext->getProduct($id);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Här kommer vi när man har tryckt  på SUBMIT
-    $product->title = $_POST['title'];
-    $product->stockLevel = $_POST['stockLevel'];
-    $product->price = $_POST['price'];
-    $product->categoryName = $_POST['categoryName'];
-    $product->imageUrl = $_POST['imageUrl'];
-    echo "<h1>Produkten har uppdaterats</h1>";
-} else {
-    // Det är INTE ett formulär som har postats - utan man har klickat in på länk tex edit.php?id=12
+if ($confirmed == true) {
+    $dbContext->deleteProduct($id);
+    header("Location: /admin.php");
+    exit;
 }
 
 ?>
@@ -78,36 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </nav>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-
-            <?php
-
-            ?>
-
-            <form method="POST">
-                <div class="form-group">
-                    <label for="title">Product Name</label>
-                    <input type="text" class="form-control" name="title" value="<?php echo $product->title ?>">
-                </div>
-                <div class="form-group">
-                    <label for="price">Price</label>
-                    <input type="text" class="form-control" name="price" value="<?php echo $product->price ?>">
-                </div>
-                <div class="form-group">
-                    <label for="stockLevel">Stock</label>
-                    <input type="text" class="form-control" name="stockLevel"
-                        value="<?php echo $product->stockLevel ?>">
-                </div>
-                <div class="form-group">
-                    <label for="categoryName">Category</label>
-                    <input type="text" class="form-control" name="categoryName"
-                        value="<?php echo $product->categoryName ?>">
-                </div>
-                <div class="form-group">
-                    <label for="imageUrl">Image</label>
-                    <input type="text" class="form-control" name="imageUrl" value="<?php echo $product->imageUrl ?>">
-                </div>
-                <input type="submit" class="btn btn-primary" value="Update">
-            </form>
+            <h1><?php echo $product->title; ?> </h1>
+            <h2>Are you sure that you want to delete?</h2>
+            <a href="/admin/delete?id=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
+            <a href="/admin.php" class="btn btn-primary">Nej</a>
         </div>
     </section>
 
