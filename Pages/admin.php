@@ -31,7 +31,7 @@ $sortOrder = $_GET['sortOrder'] ?? "";
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="/index.php">LUXÉ BEAUTY</a>
+            <a class="navbar-brand" href="/">LUXÉ BEAUTY</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -41,7 +41,7 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Kategorier</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
+                            <li><a class="dropdown-item" href="/category">All Products</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
@@ -99,8 +99,8 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                             <td><?php echo $prod->categoryName; ?></td>
                             <td><?php echo $prod->price; ?></td>
                             <td><?php echo $prod->stockLevel; ?></td>
-                            <td><a href="edit.php?id=<?php echo $prod->id; ?>" class="btn btn-primary">Edit</a>
-                                <a href="delete.php?id=<?php echo $prod->id; ?>" class="btn btn-danger">Delete</a>
+                            <td><a href="/admin/edit?id=<?php echo $prod->id; ?>" class="btn btn-primary">Edit</a>
+                                <a href="/admin/delete?id=<?php echo $prod->id; ?>" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

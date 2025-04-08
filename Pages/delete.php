@@ -36,7 +36,7 @@ if ($confirmed == true) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="/index.php">LUXÉ BEAUTY</a>
+            <a class="navbar-brand" href="/">LUXÉ BEAUTY</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -46,16 +46,15 @@ if ($confirmed == true) {
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Kategorier</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
+                            <li><a class="dropdown-item" href="/category">All Products</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <?php
                             foreach (getAllCategories() as $cat) {
-                                echo "<li><a class='dropdown-item' href='#!'>$cat</a></li>";
+                                echo "<li><a class='dropdown-item' href='/category?catname=$cat'>$cat</a></li>";
                             }
                             ?>
-                            <li><a class="dropdown-item" href="#!">En cat</a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#!">Login</a></li>
@@ -76,7 +75,7 @@ if ($confirmed == true) {
             <h1><?php echo $product->title; ?> </h1>
             <h2>Are you sure that you want to delete?</h2>
             <a href="/admin/delete?id=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
-            <a href="/admin.php" class="btn btn-primary">Nej</a>
+            <a href="/admin/products" class="btn btn-primary">Nej</a>
         </div>
     </section>
 

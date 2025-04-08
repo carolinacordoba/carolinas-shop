@@ -3,6 +3,12 @@ class Database
 {
     public $pdo;
 
+    private $usersDatabase;
+    function getUsersDatabase()
+    {
+        return $this->usersDatabase;
+    }
+
     function __construct()
     {
         $host = "localhost";
@@ -13,6 +19,10 @@ class Database
         $dsn = "mysql:host=$host:8889;dbname=$db";
         $this->pdo = new PDO($dsn, $user, $pass);
         $this->initDatabase();
+        $this->initData();
+        $this->usersDatabase = new UserDatabase($this->pdo);
+        $this->usersDatabase->setupUsers();
+        $this->usersDatabase->seedUsers();
     }
 
     function initDatabase()
@@ -49,6 +59,22 @@ class Database
         ]);
     }
 
+    function updateProduct($product)
+    {
+        $s = "UPDATE Products SET title = :title," .
+            "price = :price, stockLevel = :stockLevel, categoryName = :categoryName WHERE id = :id";
+        $query = $this->pdo->prepare($s);
+        $query->execute([
+            "title" => $product->title,
+            "price" => $product->price,
+            "stockLevel" => $product->stockLevel,
+            "categoryName" => $product->categoryName,
+            "id" => $product->id,
+            "imageUrl" => $product->imageUrl
+        ]);
+    }
+
+
     function deleteProduct($id)
     {
         $query = $this->pdo->prepare("DELETE FROM Products WHERE id = :id");
@@ -67,6 +93,18 @@ class Database
         $query = $this->pdo->query("SELECT * FROM Products ORDER BY $sortCol $sortOrder"); // Products är TABELL 
         return $query->fetchAll(PDO::FETCH_CLASS, "Product"); // Product är PHP Klass
     }
+
+    function getCategoryProducts($catName)
+    {
+        if ($catName == "") {
+            $query = $this->pdo->query("SELECT * FROM Products");
+            return $query->fetchAll(PDO::FETCH_CLASS, "Product");
+        }
+        $query = $this->pdo->prepare("SELECT * FROM Products WHERE categoryName = :categoryName");
+        $query->execute(["categoryName" => $catName]);
+        return $query->fetchAll(PDO::FETCH_CLASS, "Product");
+    }
+
     function getAllCategories()
     {
         // SELECT DISTINCT categoryName FROM Products
