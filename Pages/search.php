@@ -3,10 +3,15 @@
 #include_once("Models/Products.php") - OK även om filen inte finns
 require_once("Models/Product.php");
 require_once("components/Footer.php");
-require_once("Models/Database.php");
 require_once("components/Nav.php");
+require_once("Models/Database.php");
 
 $dbContext = new Database();
+
+$q = $_GET['q'] ?? "";
+$sortCol = $_GET['sortCol'] ?? "";
+$sortOrder = $_GET['sortOrder'] ?? "";
+
 ?>
 
 <!DOCTYPE html>
@@ -25,9 +30,11 @@ $dbContext = new Database();
         <link href="/css/styles.css" rel="stylesheet" />
     </head>
     <body>
-    <?php Nav(); ?>
+        <!-- Navigation-->
+        <?php Nav(); ?>
+
         <!-- Header-->
-        <header class="bg-dark py-5" style="background-image: url('assets/LUXE BEAUTY.webp'); background-size: cover; background-position: center;">
+        <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">LUXÉ BEAUTY</h1>
@@ -38,9 +45,17 @@ $dbContext = new Database();
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
+                        <a href="?sortCol=title&sortOrder=asc&q=<?php echo $q;?>" class="btn btn-secondary">Title asc</a>
+                        <a href="?sortCol=title&sortOrder=desc&q=<?php echo $q;?>" class="btn btn-secondary">Title desc</a>
+                        <a href="?sortCol=price&sortOrder=asc&q=<?php echo $q;?>" class="btn btn-secondary">Price asc</a>
+                        <a href="?sortCol=price&sortOrder=desc&q=<?php echo $q;?>" class="btn btn-secondary">Price desc</a>
+
+
+
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                
                 <?php 
-                foreach($dbContext->getAllProducts() as $prod){
+                    foreach($dbContext->searchProducts($q,$sortCol, $sortOrder) as $prod){
                 ?>                    
                     <div class="col mb-5">
                             <div class="card h-100">
@@ -55,7 +70,7 @@ $dbContext = new Database();
                                         <!-- Product name-->
                                         <h5 class="fw-bolder"><?php echo $prod->title; ?></h5>
                                         <!-- Product price-->
-                                        <?php echo $prod->price; ?> kr
+                                        $<?php echo $prod->price; ?> kr
                                     </div>
                                 </div>
                                 <!-- Product actions-->
@@ -64,7 +79,8 @@ $dbContext = new Database();
                                 </div>
                             </div>
                         </div>    
-                    <?php } ?>          
+                    <?php } ?>  
+                          
                 </div>
             </div> 
         </section>
@@ -78,5 +94,9 @@ $dbContext = new Database();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+
+
+
+
     </body>
 </html>

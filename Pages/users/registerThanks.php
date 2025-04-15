@@ -2,18 +2,9 @@
 require_once('Models/Product.php');
 require_once("components/Footer.php");
 require_once("components/Nav.php");
-require_once("Models/Database.php");
+require_once('Models/Database.php');
 
-$id = $_GET["id"];
-$confirmed = $_GET["confirmed"] ?? false;
 $dbContext = new Database();
-$product = $dbContext->getProduct($id);
-
-if ($confirmed == true) {
-    $dbContext->deleteProduct($id);
-    header("Location: /admin.php");
-    exit;
-}
 
 ?>
 
@@ -25,7 +16,7 @@ if ($confirmed == true) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>LUXÉ BEAUTY | Modify</title>
+    <title>LUXÉ BEAUTY</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -39,14 +30,16 @@ if ($confirmed == true) {
 
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <h1><?php echo $product->title; ?> </h1>
-            <h2>Are you sure that you want to delete?</h2>
-            <a href="/admin/delete?id=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
-            <a href="/admin/products" class="btn btn-primary">Nej</a>
+            <h1>Welcome to the Luxé World ✨</h1>
+            <h4>Your account has been created – and your glow journey officially begins.</h4>
+            <p>We’re so excited to have you with us. As a Luxé Beauty member, you’ll be the first to know about
+                exclusive launches, special offers, and beauty tips tailored just for you.</p>
+            <div class="button-group">
+                <a href="/" class="btn btn-primary">Start Shopping</a>
+                <a href="/user/login" class="btn btn-primary">Log in</a>
+            </div>
         </div>
     </section>
-
-
 
     <?php Footer(); ?>
     <!-- Bootstrap core JS-->
@@ -57,3 +50,10 @@ if ($confirmed == true) {
 </body>
 
 </html>
+
+<!-- 
+<input type="text" name="title" value="<?php echo $product->title ?>">
+        <input type="text" name="price" value="<?php echo $product->price ?>">
+        <input type="text" name="stockLevel" value="<?php echo $product->stockLevel ?>">
+        <input type="text" name="categoryName" value="<?php echo $product->categoryName ?>">
+        <input type="submit" value="Uppdatera"> -->

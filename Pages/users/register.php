@@ -14,16 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    try {  // om det är felaktigt användarnamn eller lösenord så kastas ett undantag
-        // och vi hamnar i catch
-        $dbContext->getUsersDatabase()->getAuth()->login($username, $password);
-        header('Location: /');
+    try {
+        $userId = $dbContext->getUsersDatabase()->getAuth()->register($username, $password, $username);
+        header('Location: /user/registerThanks');
         exit;
-    } catch (Exception $e) {
-        $errorMessage = "Kunde inte logga in";
+    } catch (\Delight\Auth\InvalidEmailException $e) {
+        $errorMessage = "That doesn’t look quite right – double-check your email.";
+    } catch (\Delight\Auth\InvalidPasswordException $e) {
+        $errorMessage = "Your password needs a little more sparkle – try at least 8 characters.";
+    } catch (\Delight\Auth\UserAlreadyExistsException $e) {
+        $errorMessage = "You're already part of the Luxé family. Try logging in instead.";
+    } catch (\Exception $e) {
+        $errorMessage = "Still glowing – just not logged in. Let’s fix that!";
     }
-} else {
-    // Det är INTE ett formulär som har postats - utan man har klickat in på länk tex edit.php?id=12
 }
 
 //Kunna lagra i databas
@@ -52,13 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php Nav(); ?>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <h1>Welcome back, beautiful!</h1>
+            <h1>Join the Luxé World!</h1>
+            <p>Create your account to enter the Luxé world</p>
             <?php
             if ($errorMessage != "") {
                 echo "<div class='alert alert-danger' role='alert'>" . $errorMessage . "</div>";
             }
             ?>
-            <p>Log in to your Luxé Beauty account and continue your glow journey.</p>
             <form method="POST">
                 <div class="form-group">
                     <label for="username">Email</label>
@@ -67,11 +70,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="******" value="">
+                    <input type="password" class="form-control" name="password" placeholder="Choose a strong one"
+                        value="">
                 </div>
-                <input type="submit" class="btn btn-primary" value="Login">
-                <a href="/user/register" class="btn btn-secondary">Create account</a>
-                <a href="/user/forgot" class="btn btn-secondary">Forgot password</a>
+                <div class="form-group">
+                    <label for="password">Confirm password</label>
+                    <input type="password" class="form-control" name="password2" placeholder="Just to be sure..."
+                        value="">
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Create Account">
+                    <p>Already a member? <a href="/user/login">Log in here!</a></p>
+                </div>
             </form>
 
 
