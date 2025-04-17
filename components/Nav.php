@@ -1,3 +1,5 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 <?php
 
 require_once('Models/Database.php');
@@ -6,7 +8,7 @@ function Nav()
 
     $dbContext = new Database();
 
-    $q = $_GET['q'] ?? "";
+    $q = $_GET["q"] ?? "";
 
 
     ?>
@@ -22,13 +24,13 @@ function Nav()
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Products</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/category">All Products</a></li>
+                            <li><a class="dropdown-item" href="/products">All Products</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <?php
                             foreach ($dbContext->getAllCategories() as $cat) {
-                                echo "<li><a class='dropdown-item' href='/category?catname=$cat'>$cat</a></li>";
+                                echo "<li><a class='dropdown-item' href='/products?catname=$cat'>$cat</a></li>";
                             }
                             ?>
                         </ul>
@@ -43,7 +45,7 @@ function Nav()
                     ?>
                 </ul>
                 <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
-                    User: <?php echo $dbContext->getUsersDatabase()->getAuth()->getUsername() ?>
+                    <i class="bi bi-person-heart"></i> <?php echo $dbContext->getUsersDatabase()->getAuth()->getUsername() ?>
                 <?php } ?>
 
                 <form action="/search" method="GET">

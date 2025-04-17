@@ -2,6 +2,7 @@
 require_once("Models/Product.php");
 require_once("components/Footer.php");
 require_once("components/Nav.php");
+require_once("components/Head.php");
 require_once("Models/Database.php");
 
 $dbContext = new Database();
@@ -14,19 +15,7 @@ $sortOrder = $_GET['sortOrder'] ?? "";
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>LUXÉ BEAUTY | Admin</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/css/styles.css" rel="stylesheet" />
-</head>
+<?php Head() ?>
 
 <body>
     <!-- Navigation-->
@@ -35,6 +24,7 @@ $sortOrder = $_GET['sortOrder'] ?? "";
     <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
+            <a href="/admin/new" class="btn btn-primary">Add new product</a>
             <table class="table">
                 <thead>
                     <th>Product Name

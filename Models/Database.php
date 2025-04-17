@@ -35,7 +35,8 @@ class Database
                 title VARCHAR(50),
                 price INT,
                 stockLevel INT,
-                categoryName VARCHAR(50)
+                categoryName VARCHAR(50), 
+                popularityFactor INT
             )");
     }
 
@@ -58,7 +59,8 @@ class Database
             "stockLevel" => $product->stockLevel,
             "categoryName" => $product->categoryName,
             "id" => $product->id,
-            "imageUrl" => $product->imageUrl
+            "imageUrl" => $product->imageUrl,
+            "popularityFactor" => $product->popularityFactor
         ]);
     }
 
@@ -68,16 +70,18 @@ class Database
         $query->execute(["id" => $id]);
     }
 
-    function insertProduct($title, $stockLevel, $price, $categoryName, $imageUrl)
+    function insertProduct($title, $stockLevel, $price, $categoryName, $imageUrl, $popularityFactor)
     {
-        $sql = "INSERT INTO Products (title, price, stockLevel, categoryName) VALUES (:title, :price, :stockLevel, :categoryName)";
+        $sql = "INSERT INTO Products (title, price, stockLevel, categoryName, imageUrl, popularityFactor) VALUES (:title, :price, :stockLevel, :categoryName, :imageUrl, :popularityFactor)";
         $query = $this->pdo->prepare($sql);
         $query->execute([
             "title" => $title,
             "price" => $price,
             "stockLevel" => $stockLevel,
             "categoryName" => $categoryName,
-            "imageUrl" => $imageUrl
+            "imageUrl" => $imageUrl,
+            "popularityFactor" => $popularityFactor
+
         ]);
     }
 

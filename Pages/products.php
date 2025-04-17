@@ -4,6 +4,7 @@
 require_once("Models/Product.php");
 require_once("components/Footer.php");
 require_once("components/Nav.php");
+require_once("components/Head.php");
 require_once("Models/Database.php");
 
 $dbContext = new Database();
@@ -18,19 +19,8 @@ if($catName == ""){
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>LUXÉ BEAUTY</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="/css/styles.css" rel="stylesheet" />
-    </head>
+    <?php Head()?>
+    
     <body>
         <!-- Navigation-->
         <?php Nav(); ?>
@@ -62,6 +52,21 @@ if($catName == ""){
                                     <div class="text-center">
                                         <!-- Product name-->
                                         <h5 class="fw-bolder"><?php echo $prod->title; ?></h5>
+                                        <div class="d-flex justify-content-center small text-warning mb-2">
+                                            <?php 
+                                            // Antal stjärnor som ska visas
+                                            $popularityFactor = $prod->popularityFactor;
+                                            
+                                            // Loop för att skapa stjärnorna baserat på popularityFactor
+                                            for ($i = 1; $i <= 5; $i++) {
+                                                // Om $i är mindre än eller lika med popularityFactor, visa en fylld stjärna
+                                                echo ($i <= $popularityFactor) 
+                                                    ? '<i class="bi bi-star-fill"></i>'  // Fylld stjärna
+                                                    : '<i class="bi bi-star"></i>';      // Tom stjärna
+                                            }
+                                            ?>
+                                    </div>
+                                    
                                         <!-- Product price-->
                                         <?php echo $prod->price; ?> kr
                                     </div>
