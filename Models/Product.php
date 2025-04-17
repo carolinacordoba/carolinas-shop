@@ -10,6 +10,10 @@ class Product
     public $imageUrl;
 
     public $popularityFactor;
+
+    public $shortDescription;
+
+    public $longDescription;
 }
 ;
 

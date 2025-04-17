@@ -30,6 +30,9 @@ function Footer()
                         <li><a href="#"
                                 style="color: #333; text-decoration: none; font-size: 1rem; transition: color 0.3s; transform 0.3s;">FAQ</a>
                         </li>
+                        <li><a href="/admin/products"
+                                style="color: #333; text-decoration: none; font-size: 1rem; transition: color 0.3s; transform 0.3s;">Admin</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Footer right side -->
