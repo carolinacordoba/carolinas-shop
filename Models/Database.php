@@ -51,7 +51,7 @@ class Database
     function updateProduct($product)
     {
         $s = "UPDATE Products SET title = :title," .
-            " price = :price, stockLevel = :stockLevel, categoryName = :categoryName, imageUrl = :imageUrl WHERE id = :id";
+            " price = :price, stockLevel = :stockLevel, categoryName = :categoryName, imageUrl = :imageUrl, popularityFactor = :popularityFactor WHERE id = :id";
         $query = $this->pdo->prepare($s);
         $query->execute([
             "title" => $product->title,
@@ -128,5 +128,11 @@ class Database
         $query = $this->pdo->prepare("SELECT * FROM Products WHERE title LIKE :q or categoryName like :q ORDER BY $sortCol $sortOrder");
         $query->execute(['q' => "%$q%"]);
         return $query->fetchAll(PDO::FETCH_CLASS, 'Product');
+    }
+
+    function getPopularProducts()
+    {
+        $query = $this->pdo->query("SELECT * FROM Products ORDER BY popularityFactor DESC LIMIT 10"); // Products är TABELL 
+        return $query->fetchAll(PDO::FETCH_CLASS, 'Product'); // Product är PHP Klass
     }
 }

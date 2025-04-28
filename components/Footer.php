@@ -2,10 +2,9 @@
 function Footer()
 {
     ?>
-    <footer
-        style="background-color: #F8F4F0; color: #333; padding: 60px 0 0; border-top: 1px; font-family: 'Roboto', sans-serif;">
+    <footer style="background-color: #F8F4F0; color: #333; padding: 60px 0 0; font-family: 'Roboto', sans-serif;">
         <div class="container text-center text-md-start">
-            <div class="row">
+            <div class="row" style="margin-bottom: 40px;">
                 <!-- Footer left side -->
                 <div class="col-md-4 mb-4 mb-md-0">
                     <h5 class="text-uppercase"
@@ -21,7 +20,7 @@ function Footer()
                         style="color: #333; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px; font-size: 1.1rem;">
                         SUPPORT</h5>
                     <ul class="list-unstyled d-flex justify-content-center justify-content-md-start" style="gap: 20px;">
-                        <li><a href=" #"
+                        <li><a href="/products"
                                 style="color: #333; text-decoration: none; font-size: 1rem; transition: color 0.3s; transform 0.3s;">Shop</a>
                         </li>
                         <li><a href="#"

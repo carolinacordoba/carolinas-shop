@@ -12,7 +12,7 @@ $product = $dbContext->getProduct($id);
 
 if ($confirmed == true) {
     $dbContext->deleteProduct($id);
-    header("Location: /admin.php");
+    header("Location: /admin/products");
     exit;
 }
 

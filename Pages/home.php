@@ -28,10 +28,42 @@ $dbContext = new Database();
         </div>
     </header>
     <!-- Section-->
-    <section class="py-5">
+    <section class="py-4">
         <div class="container px-4 px-lg-5 text-center">
-            <h2 class="fw-bolder mb-4">Populära produkter</h2>
+            <h2 class="fw-bolder mb-4">Handpicked Highlights</h2>
             <!-- Du lägger in produkterna här senare -->
+            <div id="popularProductsCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <?php
+                    $products = $dbContext->getPopularProducts();
+                    $chunks = array_chunk($products, 4); // ÄNDRA HÄR till 4
+                    
+                    foreach ($chunks as $index => $chunk): ?>
+                        <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                            <div class="d-flex justify-content-center gap-3">
+                                <?php foreach ($chunk as $prod): ?>
+                                    <div class="card mx-2" style="width: 16rem;">
+                                        <img class="card-img-top" src="<?= $prod->imageUrl ?>" alt="<?= $prod->title ?>">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title"><?= $prod->title ?></h5>
+                                            <p class="fw-bold"><?= $prod->price ?> kr</p>
+                                            <a href="/productdetails?id=<?= $prod->id ?>" class="btn btn-outline-dark">Shop</a>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- Controls -->
+                <a class="carousel-control-prev" href="#popularProductsCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </a>
+                <a class="carousel-control-next" href="#popularProductsCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -64,7 +96,7 @@ $dbContext = new Database();
                     <p style="color: #333; margin-bottom: 0;">Bold pigments, soft textures, and effortless glam.</p>
                     <p style="color: #333;">Our makeup is created for everyone who wants to stand out — or glow soft.
                     </p>
-                    <a href="products.php?category=glam" class="btn mt-3"
+                    <a href="/products?catname=GLAM" class="btn mt-3"
                         style="background-color: #B76E79; color: #fff; border-radius: 50px; transition: all 0.3s;"
                         onmouseover="this.style.backgroundColor='#c8858d'"
                         onmouseout="this.style.backgroundColor='#B76E79'">EXPLORE GLAM</a>
@@ -87,7 +119,7 @@ $dbContext = new Database();
                         out your natural
                         radiance. No filters needed.</p>
 
-                    <a href="products.php?category=skin" class="btn mt-3"
+                    <a href="/products?catname=SKIN" class="btn mt-3"
                         style="background-color: #B76E79; color: #fff; border-radius: 50px; transition: all 0.3s;"
                         onmouseover="this.style.backgroundColor='#c8858d'"
                         onmouseout="this.style.backgroundColor='#B76E79'">EXPLORE SKIN</a>
@@ -108,7 +140,7 @@ $dbContext = new Database();
                     <p style="color: #333; margin-bottom: 0;">From deep care to styling essentials</p>
                     <p style="color: #333; line-height: 1.6;">Our hair collection blends deep care with luxe styling,
                         for silky softness, strength, and effortless elegance from root to tip.</p>
-                    <a href="products.php?category=hair" class="btn mt-3"
+                    <a href="/products?catname=HAIR" class="btn mt-3"
                         style="background-color: #B76E79; color: #fff; border-radius: 50px; transition: all 0.3s;"
                         onmouseover="this.style.backgroundColor='#c8858d'"
                         onmouseout="this.style.backgroundColor='#B76E79'">EXPLORE HAIR</a>
@@ -129,7 +161,7 @@ $dbContext = new Database();
                     <p style="color: #333; margin-bottom: 0;">Soft, warm, unforgettable.</p>
                     <p style="color: #333; line-height: 1.6;">Discover signature scents that blend elegance and
                         identity into every spray.</p>
-                    <a href="products.php?category=scent" class="btn mt-3"
+                    <a href="/products?catname=SCENT" class="btn mt-3"
                         style="background-color: #B76E79; color: #fff; border-radius: 50px; transition: all 0.3s;"
                         onmouseover="this.style.backgroundColor='#c8858d'"
                         onmouseout="this.style.backgroundColor='#B76E79'">EXPLORE SCENT</a>
@@ -143,7 +175,9 @@ $dbContext = new Database();
     <!-- Footer-->
     <?php Footer(); ?>
     <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
 </body>

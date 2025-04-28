@@ -60,7 +60,7 @@ $sortOrder = $_GET["sortOrder"] ?? "";
                                         <!-- Product name-->
                                         <h5 class="fw-bolder"><?php echo $prod->title; ?></h5>
                                         <!-- Product price-->
-                                        $<?php echo $prod->price; ?> kr
+                                        <?php echo $prod->price; ?> kr
                                     </div>
                                 </div>
                                 <!-- Product actions-->

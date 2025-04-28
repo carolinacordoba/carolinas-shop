@@ -1,6 +1,4 @@
 <?php
-// ONCE = en gång även om det blir cirkelreferenser
-#include_once("Models/Products.php") - OK även om filen inte finns
 require_once("Models/Product.php");
 require_once("components/Footer.php");
 require_once("components/Nav.php");
@@ -8,6 +6,9 @@ require_once("components/Head.php");
 require_once("Models/Database.php");
 
 $dbContext = new Database();
+
+$sortCol = $_GET['sortCol'] ?? "";
+$sortOrder = $_GET['sortOrder'] ?? "";
 
 $catName = $_GET["catname"] ?? "";
 
@@ -26,16 +27,17 @@ if ($catName == "") {
     <?php Nav(); ?>
     <!-- Header-->
     <header class="bg-dark py-5"
-        style="background-image: url('assets/LUXE BEAUTY.webp'); background-size: cover; background-position: center;">
+        style="background-image: url('assets/category-img.jpg'); background-size: cover; background-position: center;">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder"> <?php echo $header; ?></h1>
-                <p class="lead fw-normal text-white-50 mb-0">Where luxury meets effortless beauty</p>
+                <p class="lead fw-normal text-white-50 mb-0">Effortless beauty, one product at a time</p>
             </div>
         </div>
     </header>
     <!-- Section-->
     <section class="py-5">
+
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php
@@ -87,9 +89,6 @@ if ($catName == "") {
             </div>
         </div>
     </section>
-
-
-
 
     <!-- Footer-->
     <?php Footer(); ?>
