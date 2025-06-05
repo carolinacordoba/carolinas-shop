@@ -6,12 +6,15 @@ require_once("components/Footer.php");
 require_once("components/Nav.php");
 require_once("components/Head.php");
 require_once("Models/Database.php");
+require_once("Utils/searchengine.php");
 
 $dbContext = new Database();
 
 $q = $_GET["q"] ?? "";
-$sortCol = $_GET["sortCol"] ?? "";
-$sortOrder = $_GET["sortOrder"] ?? "";
+$sortCol = $_GET["sortCol"] ?? "title";
+$sortOrder = $_GET["sortOrder"] ?? "asc";
+
+$searchEngine = new SearchEngine();
 
 ?>
 
@@ -45,7 +48,7 @@ $sortOrder = $_GET["sortOrder"] ?? "";
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 
                 <?php 
-                    foreach($dbContext->searchProducts($q,$sortCol, $sortOrder) as $prod){
+                    foreach($searchEngine->search($q,$sortCol, $sortOrder) as $prod){
                 ?>                    
                     <div class="col mb-5">
                             <div class="card h-100">
@@ -59,6 +62,15 @@ $sortOrder = $_GET["sortOrder"] ?? "";
                                     <div class="text-center">
                                         <!-- Product name-->
                                         <h5 class="fw-bolder"><?php echo $prod->title; ?></h5>
+                                        <!-- Popularity factor -->
+                                        <?php
+                                            $popularityFactor = $prod->popularityFactor;
+                                            for ($i = 1; $i <= 5; $i++) {
+                                                echo ($i <= $popularityFactor)
+                                                    ? '<i class="bi bi-star-fill me-1"></i>'
+                                                    : '<i class="bi bi-star me-1"></i>';
+                                            }
+                                            ?>
                                         <!-- Product price-->
                                         <?php echo $prod->price; ?> kr
                                     </div>
