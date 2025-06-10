@@ -26,6 +26,7 @@ $router->addRoute('/admin/edit', function () {
 $router->addRoute('/admin/new', function () {
     require_once(__DIR__ . '/Pages/new.php');
 });
+
 $router->addRoute('/admin/delete', function () {
     require_once(__DIR__ . '/Pages/delete.php');
 });
@@ -46,6 +47,26 @@ $router->addRoute('/user/registerThanks', function () {
 
 $router->addRoute('/search', function () {
     require_once(__DIR__ . '/Pages/search.php');
+});
+
+$router->addRoute('/checkout', function () {
+    require_once(__DIR__ . '/Pages/checkout.php');
+});
+
+$router->addRoute('/checkoutsuccess', function () {
+    require_once(__DIR__ . '/Pages/checkoutSuccess.php');
+});
+
+$router->addRoute('/cart', function () {
+    require_once(__DIR__ . '/Pages/cart.php');
+});
+
+$router->addRoute('/addtocart', function () {
+    require_once(__DIR__ . '/Pages/addToCart.php');
+});
+
+$router->addRoute('/deletefromcart', function () {
+    require_once(__DIR__ . '/Pages/deleteFromCart.php');
 });
 
 $router->dispatch();

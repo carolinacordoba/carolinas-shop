@@ -59,15 +59,18 @@ $showDetails = isset($_GET['showDetails']) && $_GET['showDetails'] == 'true';
                 </p>
 
                 <!-- Quantity & Add to Cart -->
-                <form action="add_to_cart.php" method="POST">
+                <form action="/cart" method="POST">
                     <div class="d-flex align-items-center mb-3">
 
                         <!-- Add to Cart button -->
                         <input type="hidden" name="product_id" value="<?= $product->id ?>">
-                        <button type="submit" class="btn btn-dark px-4 py-2"
+                        <!-- <button type="submit" class="btn btn-dark px-4 py-2"
                             style="background-color: #B76E79; border: none;">
                             Add to cart
-                        </button>
+                        </button> -->
+                        <a class="btn btn-dark px-4 py-2" style="background-color: #B76E79; border: none;"
+                            href="addtocart?productId=<?php echo $product->id ?>&fromPage=<?php echo urlencode((empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") ?>">Add
+                            to cart</a>
                     </div>
                 </form>
 
