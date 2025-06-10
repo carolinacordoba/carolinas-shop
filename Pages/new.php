@@ -13,6 +13,8 @@ $dbContext = new Database();
 $v = new Validator($_POST); // VALIDERINGEN
 
 $title = "";
+$longDescription = "";
+$shortDescription = "";
 $stockLevel = "";
 $price = "";
 $categoryName = "";
@@ -21,8 +23,9 @@ $popularityFactor = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Här kommer vi när man har tryckt  på SUBMIT
-    // IMORGON TISDAG SÅ UPDATE PRODUCT SET title = $_POST['title'] WHERE id = $id
     $title = $_POST['title'];
+    $longDescription = $_POST['longDescription'];
+    $shortDescription = $_POST['shortDescription'];
     $stockLevel = $_POST['stockLevel'];
     $price = $_POST['price'];
     $categoryName = $_POST['categoryName'];
@@ -32,6 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Här ska det valideras - SERVERSIDE validering
     $v->field('title')->required()->alpha_num([' '])->min_len(3)->max_len(50);
+    $v->field('longDescription')->required()->alpha_num([' '])->min_len(3)->max_len(1000);
+    $v->field('shortDescription')->required()->alpha_num([' '])->min_len(3)->max_len(400);
     $v->field('stockLevel')->required()->numeric()->min_val(0);
     $v->field('price')->required()->numeric()->min_val(0);
     $v->field('categoryName')->required()->alpha_num([''])->min_len(3)->max_len(50);
@@ -41,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($v->is_valid()) {
 
         // OK - spara i databas
-        $dbContext->insertProduct($title, $stockLevel, $price, $categoryName, $imageUrl, $popularityFactor);
+        $dbContext->insertProduct($title, $longDescription, $shortDescription, $stockLevel, $price, $categoryName, $imageUrl, $popularityFactor);
         header("Location: /admin/products");
         exit;
     }
@@ -66,8 +71,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="title">Title</label>
                     <input type="text"
                         class="form-control  <?php echo $v->get_error_message('title') != "" ? "is-invalid" : "" ?>"
-                        name=" title" value="<?php echo $title ?>">
+                        name="title" value="<?php echo $title ?>">
                     <span class="invalid-feedback"><?php echo $v->get_error_message('title'); ?></span>
+                </div>
+                <div class="form-group">
+                    <label for="longDescription">Long description</label>
+                    <input type="text"
+                        class="form-control  <?php echo $v->get_error_message('longDescription') != "" ? "is-invalid" : "" ?>"
+                        name="longDescription" value="<?php echo $longDescription ?>">
+                    <span class="invalid-feedback"><?php echo $v->get_error_message('longDescription'); ?></span>
+                </div>
+                <div class="form-group">
+                    <label for="shortDescription">Short description</label>
+                    <input type="text"
+                        class="form-control  <?php echo $v->get_error_message('shortDescription') != "" ? "is-invalid" : "" ?>"
+                        name="shortDescription" value="<?php echo $shortDescription ?>">
+                    <span class="invalid-feedback"><?php echo $v->get_error_message('shortDescription'); ?></span>
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>

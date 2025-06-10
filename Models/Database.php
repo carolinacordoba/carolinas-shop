@@ -39,7 +39,10 @@ class Database
             price INT,
             stockLevel INT,
             categoryName VARCHAR(50), 
-            popularityFactor INT
+            imageUrl VARCHAR(1000),
+            popularityFactor INT,
+            shortDescription VARCHAR(400),
+            longDescription VARCHAR(1000)
         )
     ");
 
@@ -67,10 +70,12 @@ class Database
     function updateProduct($product)
     {
         $s = "UPDATE Products SET title = :title," .
-            " price = :price, stockLevel = :stockLevel, categoryName = :categoryName, imageUrl = :imageUrl, popularityFactor = :popularityFactor WHERE id = :id";
+            " price = :price, longDescription = :longDescription, shortDescription = :shortDescription, stockLevel = :stockLevel, categoryName = :categoryName, imageUrl = :imageUrl, popularityFactor = :popularityFactor WHERE id = :id";
         $query = $this->pdo->prepare($s);
         $query->execute([
             "title" => $product->title,
+            "longDescription" => $product->longDescription,
+            "shortDescription" => $product->shortDescription,
             "price" => $product->price,
             "stockLevel" => $product->stockLevel,
             "categoryName" => $product->categoryName,
@@ -86,12 +91,14 @@ class Database
         $query->execute(["id" => $id]);
     }
 
-    function insertProduct($title, $stockLevel, $price, $categoryName, $imageUrl, $popularityFactor)
+    function insertProduct($title, $longDescription, $shortDescription, $stockLevel, $price, $categoryName, $imageUrl, $popularityFactor)
     {
-        $sql = "INSERT INTO Products (title, price, stockLevel, categoryName, imageUrl, popularityFactor) VALUES (:title, :price, :stockLevel, :categoryName, :imageUrl, :popularityFactor)";
+        $sql = "INSERT INTO Products (title, longDescription, shortDescription, price, stockLevel, categoryName, imageUrl, popularityFactor) VALUES (:title, :longDescription, :shortDescription, :price, :stockLevel, :categoryName, :imageUrl, :popularityFactor)";
         $query = $this->pdo->prepare($sql);
         $query->execute([
             "title" => $title,
+            "longDescription" => $longDescription,
+            "shortDescription" => $shortDescription,
             "price" => $price,
             "stockLevel" => $stockLevel,
             "categoryName" => $categoryName,
