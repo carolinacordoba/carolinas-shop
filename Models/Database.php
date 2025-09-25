@@ -18,7 +18,7 @@ class Database
     {
         $host = $_ENV["HOST"];
         $db = $_ENV["DB"];
-        $user = $_ENV["USER"];
+        $user = $_ENV["USERNAME"];
         $pass = $_ENV["PASSWORD"];
         $port = $_ENV["PORT"];
 

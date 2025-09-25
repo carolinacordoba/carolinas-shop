@@ -27,6 +27,21 @@ $showDetails = isset($_GET['showDetails']) && $_GET['showDetails'] == 'true';
 <body>
     <?php Nav(); ?>
 
+    <script>
+        gtag("event", "view_item", {
+            currency: "SEK",
+            value: <?php echo $product->price; ?>,
+            items: [
+                {
+                    item_id: "<?php echo $product->id; ?>",
+                    item_name: "<?php echo $product->title; ?>",
+                    price: <?php echo $product->price; ?>,
+                    quantity: 1
+                }
+            ]
+        });
+    </script>
+
     <div class="container py-5">
         <div class="row">
             <!-- LEFT: Product Images -->

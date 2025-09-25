@@ -9,6 +9,15 @@ function Head()
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>LUXÉ BEAUTY</title>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WD9YFHBWCT"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-WD9YFHBWCT');
+        </script>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->

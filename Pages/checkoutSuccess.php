@@ -39,7 +39,31 @@ $cart = new Cart($dbContext, $session_id, $userId);
         </div>
     </section>
 
+    <?php
 
+    $googleItems = [];
+    foreach ($cart->getItems() as $cartitem) {
+        array_push($googleItems, [
+
+            "quantity" => $cartitem->quantity,
+            "price" => $cartitem->price,
+            "item_id" => $cartitem->id,
+            "item_name" => $cartitem->productName,
+        ]);
+    }
+
+    ?>
+
+    <script>
+        gtag("event", "purchase", {
+            transaction_id: Math.floor(Math.random() * 99999999),
+            currency: "SEK",
+            value: <?php echo $cart->getTotalPrice(); ?>,
+            items: [
+                <?php echo json_encode($googleItems); ?>
+            ]
+        });
+    </script>
 
     <?php Footer(); ?>
     <!-- Bootstrap core JS-->
